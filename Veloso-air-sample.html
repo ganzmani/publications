@@ -79,25 +79,25 @@ $("#authorselectfirst, #authorselect").on("change", function() {
 <br>
 <div class="container-fluid">
     <div class="searchbar">
-        <div style="float:left;">
+        <div style="float:left; margin-right: 15px;">
             <button type="button" class="btn btn-default" onclick="reset()">Reset</button>
         </div>
-        <div style="float:left;">
-            <select id="authorselectfirst" class="btn bibtex_search bibtex_author" style="border: 1px solid lightgrey; text-align: center;"
+        <div style="float:left; margin-right: 15px;">
+            <select id="authorselectfirst" class="btn bibtex_search bibtex_author" style="border: 1px solid lightgrey; text-align: left;"
                     extra="first" search="author" onchange="resetOtherFilters('authorselectfirst')">
                 <option value="">Search First Author</option>
             </select>
         </div>
-        <div style="float:left;">
+        <div style="float:left; margin-right: 15px;">
             <select id="authorselect" class="btn bibtex_search bibtex_author" style="border: 1px solid lightgrey; text-align: left;"
                     search="author" onchange="resetOtherFilters('authorselect')">
                 <option value="">Search Author</option>
             </select>
         </div>
-        <div style="float:left;">
+        <div style="float:left; margin-right: 15px; ">
             <select id="topicselect" class="btn
 							bibtex_search"
-                    style="border: 1px solid lightgrey;" search="topic">
+                    style="border: 1px solid lightgrey; text-align: left;" search="topic">
                 <option value="">Search Topic</option>
                 <!-- Add topic values here -->
                 <option value="Autonomy">Autonomy</option>
@@ -113,7 +113,7 @@ $("#authorselectfirst, #authorselect").on("change", function() {
                 <option value="Vision">Vision</option>
             </select>
         </div>
-        <div style="float:left;">
+        <div style="float:left; margin-right: 15px;">
             <input type="text" class="bibtex_search form-control" id="searchbar" placeholder="Search publications">
             <span class="help-block">Example: journal 2015 (finds the intersection of the two terms)</span>
         </div>
