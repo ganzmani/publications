@@ -915,18 +915,14 @@ function authorList(object) {
 
     $("span.author").each(function(i, obj) {
         var authors = formatAuthors($(this).text());
-        console.log("Processed Authors for span #" + i + ":", authors);
-
         if (object.attr("extra") == "first") {
             console.log("Processing first author logic for span #", i);
             map[authors[0]] = (map[authors[0]] || 0) + 1;
         } else {
-            console.log("Processing all authors logic for span #", i);
             authors.forEach(function(author) {
                 map[author] = (map[author] || 0) + 1;
             });
         }
-        console.log("Map after processing span #" + i + ":", map);
     });
 
     var tuples = [];
@@ -937,10 +933,6 @@ function authorList(object) {
     tuples.sort(function(a, b) {
         return a[1].localeCompare(b[1]);
     });
-
-
-    console.log("Tuples to be added:", tuples);
-
     for (var i = 0; i < tuples.length; i++) {
     var key = tuples[i][0];
     var nameParts = key.split(" ");
@@ -948,10 +940,6 @@ function authorList(object) {
     var formattedName = lastName + ", " + nameParts.join(" ");
     object.append($("<option></option>").attr("value", key).text(formattedName));
 }
-
-
-    console.log("Processing object with id:", object.attr("id"), "and extra:", object.attr("extra"));
-    console.log("Dropdown options:", object.children('option').length);
 }
 
 
