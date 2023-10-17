@@ -931,18 +931,22 @@ function authorList(object) {
 
     var tuples = [];
     for (var key in map) {
-        tuples.push([key, key.split(" ").pop().toLowerCase()]);
+    tuples.push([key, key.split(" ")[0].toLowerCase()]);
     }
 
     tuples.sort(function(a, b) {
         return a[1].localeCompare(b[1]);
     });
 
+
     console.log("Tuples to be added:", tuples);
 
     for (var i = 0; i < tuples.length; i++) {
     var key = tuples[i][0];
-    object.append($("<option></option>").attr("value", key).text(key));
+    var nameParts = key.split(" ");
+    var lastName = nameParts.shift();
+    var formattedName = lastName + ", " + nameParts.join(" ");
+    object.append($("<option></option>").attr("value", key).text(formattedName));
 }
 
 
