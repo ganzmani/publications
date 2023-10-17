@@ -927,7 +927,8 @@ function authorList(object) {
 
     var tuples = [];
     for (var key in map) {
-    tuples.push([key, key.split(" ")[0].toLowerCase()]);
+    var cleanKey = key.replace(/\*/g, ''); // Remove all asterisks
+    tuples.push([cleanKey, cleanKey.split(" ")[0].toLowerCase()]);
     }
 
     tuples.sort(function(a, b) {
