@@ -83,13 +83,13 @@ $("#authorselectfirst, #authorselect").on("change", function() {
             <button type="button" class="btn btn-default" onclick="reset()">Reset</button>
         </div>
         <div style="float:left;">
-            <select id="authorselectfirst" class="btn bibtex_search bibtex_author" style="border: 1px solid lightgrey;"
+            <select id="authorselectfirst" class="btn bibtex_search bibtex_author" style="border: 1px solid lightgrey; text-align: center;"
                     extra="first" search="author" onchange="resetOtherFilters('authorselectfirst')">
                 <option value="">Search First Author</option>
             </select>
         </div>
         <div style="float:left;">
-            <select id="authorselect" class="btn bibtex_search bibtex_author" style="border: 1px solid lightgrey;"
+            <select id="authorselect" class="btn bibtex_search bibtex_author" style="border: 1px solid lightgrey; text-align: left;"
                     search="author" onchange="resetOtherFilters('authorselect')">
                 <option value="">Search Author</option>
             </select>
