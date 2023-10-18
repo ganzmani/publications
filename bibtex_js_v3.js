@@ -906,7 +906,58 @@ function formatAuthors(authorString) {
     if (authorString.includes('[') || authorString.includes('{')) {
         return authorString.replace(/[\[\{\]\}"]/g, "").split(new RegExp(",| and "));
     } else {
-        return authorString.split(new RegExp(",[\\s]+and[\\s]+|,[\\s]+")).map(author => author.trim());
+        return authorString.split(new RegExp(",[\\s]+and[\\s]+|,[\\s]+| and ")).map(author => author.trim());
+    }
+}
+
+function extractNameParts(author) {
+    let parts = author.split(",");
+    if (parts.length === 2) {
+        // Likely the "Lastname, Firstname Middlename" format.
+        let lastName = parts[0].trim();
+        let nameParts = parts[1].trim().split(" ");
+
+        let firstName;
+        let middleName = "";
+
+        if (nameParts.length === 1) {
+            firstName = nameParts[0];
+        } else if (nameParts.length === 2) {
+            firstName = nameParts[0];
+            middleName = nameParts[1];
+        } else {
+            firstName = nameParts.slice(0, -1).join(" ");
+            middleName = nameParts[nameParts.length - 1];
+        }
+
+        return {
+            firstName: firstName,
+            middleName: middleName,
+            lastName: lastName
+        };
+    } else {
+        // Likely one of the other formats.
+        parts = author.split(" ");
+        if (parts.length === 3) {
+            return {
+                firstName: parts[0],
+                middleName: parts[1],
+                lastName: parts[2]
+            };
+        } else if (parts.length === 2) {
+            return {
+                firstName: parts[0],
+                middleName: "",
+                lastName: parts[1]
+            };
+        } else {
+            // Incorrect format or a single name.
+            return {
+                firstName: parts[0] || "",
+                middleName: "",
+                lastName: parts[parts.length - 1] || ""
+            };
+        }
     }
 }
 
@@ -915,8 +966,8 @@ function authorList(object) {
 
     $("span.author").each(function(i, obj) {
         var authors = formatAuthors($(this).text());
+        console.log("Formatted author after processing:", authors);
         if (object.attr("extra") == "first") {
-            console.log("Processing first author logic for span #", i);
             map[authors[0]] = (map[authors[0]] || 0) + 1;
         } else {
             authors.forEach(function(author) {
@@ -927,21 +978,34 @@ function authorList(object) {
 
     var tuples = [];
     for (var key in map) {
-    var cleanKey = key.replace(/\*/g, ''); // Remove all asterisks
-    tuples.push([cleanKey, cleanKey.split(" ")[0].toLowerCase()]);
+        var cleanKey = key.replace(/\*/g, ''); // Remove all asterisks
+        var nameInfo = extractNameParts(cleanKey);
+        console.log("Authors map:", map);
+        tuples.push({
+            original: cleanKey,
+            sortKey: nameInfo.lastName.toLowerCase(),
+            firstName: nameInfo.firstName,
+            middleName: nameInfo.middleName,
+            lastName: nameInfo.lastName
+        });
     }
+    if (object.attr("extra") == "first") {
+    console.log("Processing only the first author due to the 'extra' attribute");
+}
 
     tuples.sort(function(a, b) {
-        return a[1].localeCompare(b[1]);
+        return a.sortKey.localeCompare(b.sortKey);
     });
+
     for (var i = 0; i < tuples.length; i++) {
-    var key = tuples[i][0];
-    var nameParts = key.split(" ");
-    var lastName = nameParts.shift();
-    var formattedName = lastName + ", " + nameParts.join(" ");
-    object.append($("<option></option>").attr("value", key).text(formattedName));
+        var key = tuples[i].original;
+        var formattedName = tuples[i].lastName + ", " + tuples[i].firstName + (tuples[i].middleName ? " " + tuples[i].middleName : "");
+        console.log("Formatted name:", formattedName);  // <-- Add this line
+        object.append($("<option></option>").attr("value", key).text(formattedName));
+    }
 }
-}
+
+
 
 
 var defaultTemplate = "<div class=\"bibtex_template\">"+
