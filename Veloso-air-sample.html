@@ -83,6 +83,53 @@
             display: inline;
             margin-left: 8px;
         }
+
+        .searchbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .searchbar select,
+        .searchbar button,
+        .searchbar input {
+            border: 1px solid lightgrey;
+            padding: 5px 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            /* subtle shadow for depth */
+            transition: 0.3s;
+            /* smooth transitions for hover effects */
+        }
+
+        .searchbar select:hover,
+        .searchbar button:hover,
+        .searchbar input:hover {
+            border-color: #007BFF;
+            /* change border color on hover */
+        }
+
+        .search-input {
+            flex-grow: 1;
+            /* allows the search input to take up remaining space */
+            position: relative;
+        }
+
+        .search-input input {
+            width: 60%;
+            /* make the input span the entire width of its container */
+        }
+
+        .help-block {
+            position: absolute;
+            /* position it relative to the search-input container */
+            bottom: -30px;
+            /* position it below the input */
+            left: 0;
+            font-size: 0.9rem;
+            color: grey;
+        }
     </style>
 
     <!-- Latest compiled and minified CSS -->
@@ -101,47 +148,42 @@
     <br>
     <div class="container-fluid">
         <div class="searchbar">
-            <div style="float:left; margin-right: 15px;">
-                <button type="button" class="btn btn-default" onclick="reset()">Reset</button>
-            </div>
-            <div style="float:left; margin-right: 15px;">
-                <select id="authorselectfirst" class="btn bibtex_search bibtex_author"
-                    style="border: 1px solid lightgrey; text-align: left;" extra="first" search="author"
-                    onchange="resetOtherFilters('authorselectfirst')">
-                    <option value="">Search First Author</option>
-                </select>
-            </div>
-            <div style="float:left; margin-right: 15px;">
-                <select id="authorselect" class="btn bibtex_search bibtex_author"
-                    style="border: 1px solid lightgrey; text-align: left;" search="author"
-                    onchange="resetOtherFilters('authorselect')">
-                    <option value="">Search Author</option>
-                </select>
-            </div>
-            <div style="float:left; margin-right: 15px; ">
-                <select id="topicselect" class="btn
-							bibtex_search" style="border: 1px solid lightgrey; text-align: left;" search="topic">
-                    <option value="">Search Topic</option>
-                    <!-- Add topic values here -->
-                    <option value="Autonomy">Autonomy</option>
-                    <option value="Symbiotic">Symbiotic Autonomy</option>
-                    <option value="CoBot|Episodic|Service|Insights|Model-Instance|Diverse">CoBot</option>
-                    <option value="Learning">Learning</option>
-                    <option value="Multiagent">Multiagent Systems</option>
-                    <option value="Multi-robot|Multirobot|soccer|Multiagent">Multirobot Systems</option>
-                    <option value="Planning">Planning</option>
-                    <option value="Robot">Autonomous Robots</option>
-                    <option value="Localization">Robot Localization</option>
-                    <option value="Soccer|Multi-robot">Robot Soccer</option>
-                    <option value="Vision">Vision</option>
-                </select>
-            </div>
-            <div style="float:left; margin-right: 15px;">
+            <button class="btn btn-default" onclick="reset()">Reset</button>
+
+            <select id="authorselectfirst" class="btn bibtex_search bibtex_author" extra="first" search="author"
+                onchange="resetOtherFilters('authorselectfirst')">
+                <option value="">Search First Author</option>
+            </select>
+
+            <select id="authorselect" class="btn bibtex_search bibtex_author" search="author"
+                onchange="resetOtherFilters('authorselect')">
+                <option value="">Search Author</option>
+            </select>
+
+            <select id="topicselect" class="btn bibtex_search" search="topic">
+                <option value="">Search Topic</option>
+                <!-- Add topic values here -->
+                <option value="Autonomy">Autonomy</option>
+                <option value="Symbiotic">Symbiotic Autonomy</option>
+                <option value="CoBot|Episodic|Service|Insights|Model-Instance|Diverse">CoBot</option>
+                <option value="Learning">Learning</option>
+                <option value="Multiagent">Multiagent Systems</option>
+                <option value="Multi-robot|Multirobot|soccer|Multiagent">Multirobot Systems</option>
+                <option value="Planning">Planning</option>
+                <option value="Robot">Autonomous Robots</option>
+                <option value="Localization">Robot Localization</option>
+                <option value="Soccer|Multi-robot">Robot Soccer</option>
+                <option value="Vision">Vision</option>
+            </select>
+
+            <div class="search-input">
                 <input type="text" class="bibtex_search form-control" id="searchbar" placeholder="Search publications">
-                <span class="help-block">Example: journal 2015 (finds the intersection of the two terms)</span>
+                <span class="help-block" style="font-size:17px; margin: 6px;">Example: journal 2015 (finds the
+                    intersection of the two terms)</span>
             </div>
         </div>
     </div>
+
 
     <div class="bibtex_structure">
         <div class="group year" extra="ASC number">
