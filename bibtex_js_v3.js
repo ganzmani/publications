@@ -838,27 +838,22 @@ function createWebPage(defaultTemplate) {
 
 function loadExtras() {
     BibTeXSearcherClass = new BibTeXSearcher();
+
     $(".bibtex_author").each(function (i, obj) {
         authorList($(this));
     });
 
-    localStorage.removeItem("customerDatabase");
+    // Removed customerDatabase reference since it's related to localStorage
 
-    if (!localStorage.searcher) {
-        localStorage.searcher = new Object();
-    }
-
-    //Resets selects when back button is used
+    // Resets selects - without localStorage. Note: This won't persist values if a user navigates away and then returns via the back button.
     $("select").each(function () {
-        if (localStorage.getItem($(this).attr("id"))) {
-            $(this).val(JSON.parse(localStorage.getItem($(this).attr("id"))));
-        }
+        // Previous localStorage code removed. If needed, we can implement another method to save state.
     });
 
     $(".bibtex_search").each(function (i, obj) {
         $(this).on('change', function (e) {
             combineSearcher(BibTeXSearcherClass, true);
-            localStorage.setItem($(this).attr("id"), JSON.stringify($(this).val()));
+            // localStorage related saving removed here.
         });
         $(this).keyup(function () {
             combineSearcher(BibTeXSearcherClass);
@@ -867,8 +862,8 @@ function loadExtras() {
             combineSearcher(BibTeXSearcherClass, true);
         }
     });
-
 }
+
 
 function combineSearcher(searcherClass, needToRestart) {
     needToRestart = typeof needToRestart !== 'undefined' ? needToRestart : false;
