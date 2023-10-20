@@ -27,14 +27,16 @@
                 });
             });
         });
+
         function reset() {
             $("select").each(function () {
-                localStorage.setItem($(this).attr("id"), "");
+                // Removed localStorage line
                 $(this).val("");
             });
             $("#searchbar").val("");
             $("#searchbar").trigger('change');
         }
+
         function resetOtherFilters(changedId) {
             $("select").each(function () {
                 if ($(this).attr("id") !== changedId) {
@@ -48,6 +50,7 @@
             resetOtherFilters($(this).attr("id"));
             $(this).trigger('change');
         });
+
 
     </script>
 

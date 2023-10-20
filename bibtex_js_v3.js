@@ -955,7 +955,6 @@ function authorList(object) {
 
     $("span.author").each(function (i, obj) {
         var authors = formatAuthors($(this).text());
-        console.log("Formatted author after processing:", authors);
         if (object.attr("extra") == "first") {
             map[authors[0]] = (map[authors[0]] || 0) + 1;
         } else {
@@ -969,7 +968,6 @@ function authorList(object) {
     for (var key in map) {
         var cleanKey = key.replace(/\*/g, ''); // Remove all asterisks
         var nameInfo = extractNameParts(cleanKey);
-        console.log("Authors map:", map);
         tuples.push({
             original: cleanKey,
             sortKey: nameInfo.lastName.toLowerCase(),
@@ -977,9 +975,6 @@ function authorList(object) {
             middleName: nameInfo.middleName,
             lastName: nameInfo.lastName
         });
-    }
-    if (object.attr("extra") == "first") {
-        console.log("Processing only the first author due to the 'extra' attribute");
     }
 
     tuples.sort(function (a, b) {
@@ -989,7 +984,6 @@ function authorList(object) {
     for (var i = 0; i < tuples.length; i++) {
         var key = tuples[i].original;
         var formattedName = tuples[i].lastName + ", " + tuples[i].firstName + (tuples[i].middleName ? " " + tuples[i].middleName : "");
-        console.log("Formatted name:", formattedName);  // <-- Add this line
         object.append($("<option></option>").attr("value", key).text(formattedName));
     }
 }
