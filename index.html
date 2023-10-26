@@ -67,10 +67,6 @@
             display: none;
         }
 
-        .searchbar {
-            margin-left: 0px;
-        }
-
         #bibtex_errors {
             margin-top: 10px;
             color: red;
@@ -89,10 +85,11 @@
 
         .searchbar {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+            flex-wrap: no-wrap;
+            gap: 5px;
             align-items: center;
             margin-bottom: 20px;
+            min-height: 100px;
         }
 
         .searchbar select,
@@ -101,37 +98,58 @@
             border: 1px solid lightgrey;
             padding: 5px 10px;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            /* subtle shadow for depth */
             transition: 0.3s;
-            /* smooth transitions for hover effects */
         }
 
         .searchbar select:hover,
         .searchbar button:hover,
         .searchbar input:hover {
             border-color: #007BFF;
-            /* change border color on hover */
         }
 
         .search-input {
-            flex-grow: 1;
-            /* allows the search input to take up remaining space */
             position: relative;
+            margin-right: 0px;
+            flex-grow: 0;
+            /* Adjust this to reduce the width proportionally */
+            margin-right: 2px;
+        }
+
+        #downloadBibSubset {
+            margin-left: 50px;
         }
 
         .search-input input {
-            width: 60%;
-            /* make the input span the entire width of its container */
+            margin: 0;
+            width: calc(55ch + 10%);
+            padding-right: 10%;
+            /* Adjusted the padding to allow more space for text */
+        }
+
+
+        .search-group {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
         }
 
         .help-block {
             position: absolute;
-            /* position it relative to the search-input container */
             bottom: -30px;
-            /* position it below the input */
+            /* Adjusted the position to be slightly closer */
             left: 0;
             font-size: 0.9rem;
             color: grey;
+            width: 55ch;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .search-input-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 0;
         }
     </style>
 
@@ -179,11 +197,18 @@
                 <option value="Vision">Vision</option>
             </select>
 
-            <div class="search-input">
-                <input type="text" class="bibtex_search form-control" id="searchbar" placeholder="Search publications">
-                <span class="help-block" style="font-size:17px; margin: 6px;">Example: journal 2015 (finds the
-                    intersection of the two terms)</span>
+            <div class="search-group">
+                <div class="search-input">
+                    <input type="text" class="bibtex_search form-control" id="searchbar"
+                        placeholder="Search publications">
+                    <span class="help-block" style="font-size:17px; margin: 6px;">Example: journal 2015 (finds the
+                        intersection of the two terms)</span>
+                </div>
+                <button class="btn btn-default" id="downloadBibSubset">Download Filtered .bib</button>
             </div>
+
+
+
         </div>
     </div>
 

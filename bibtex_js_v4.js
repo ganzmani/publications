@@ -656,6 +656,43 @@ function bibtex_js_draw() {
         });
     }
 }
+$(document).ready(function () {
+    $('#downloadBibSubset').on('click', function () {
+        downloadFilteredBibEntries();
+    });
+});
+
+function downloadFilteredBibEntries() {
+    // Gathering displayed BibTeX entries
+    let entries = [];
+    $("div#bibtex_display .bibtexentry:visible").each(function () {
+        entries.push($(this).find('pre .bibtexraw').text() + "\n\n");
+    });
+
+    // Check the dropdowns for selected values
+    let authorFirst = $('#authorselectfirst').val();
+    let author = $('#authorselect').val();
+    let topic = $('#topicselect').val();
+    let searchTerm = $('#searchbar').val().trim();
+
+    // Prioritize dropdown selection over the search term
+    let filenameTag = authorFirst || author || topic || searchTerm || 'default';
+    let filename = `AIR-publications-subset-${filenameTag}.bib`.replace(/\s+/g, '-'); // replace spaces with underscores
+
+    // Create a blob of the BibTeX entries and trigger download
+    let blob = new Blob(entries, { type: 'text/plain' });
+    let link = document.createElement("a");
+    let url = window.URL.createObjectURL(blob);
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(function () {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+    }, 0);
+}
+
 
 /**
 BibTex Searcher is used with input form
@@ -976,6 +1013,15 @@ function authorList(object) {
             lastName: nameInfo.lastName
         });
     }
+
+    tuples.sort(function (a, b) {
+        if (a.sortKey !== b.sortKey) { // if last names are different
+            return a.sortKey.localeCompare(b.sortKey); // sort by last name
+        } else {
+            return a.firstName.toLowerCase().localeCompare(b.firstName.toLowerCase()); // sort by first name if last names are the same
+        }
+    });
+
 
     tuples.sort(function (a, b) {
         return a.sortKey.localeCompare(b.sortKey);
