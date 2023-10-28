@@ -74,6 +74,7 @@
 
         h1.header {
             margin-left: 8px;
+            margin-bottom: 0;
         }
 
         h1.YEAR {
@@ -88,7 +89,6 @@
             flex-wrap: no-wrap;
             gap: 5px;
             align-items: center;
-            margin-bottom: 20px;
             min-height: 100px;
         }
 
@@ -100,6 +100,7 @@
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             transition: 0.3s;
         }
+
 
         .searchbar select:hover,
         .searchbar button:hover,
@@ -113,10 +114,6 @@
             flex-grow: 0;
             /* Adjust this to reduce the width proportionally */
             margin-right: 2px;
-        }
-
-        #downloadBibSubset {
-            margin-left: 50px;
         }
 
         .search-input input {
@@ -147,9 +144,28 @@
         }
 
         .search-input-container {
-            display: flex;
             align-items: center;
             flex-grow: 0;
+        }
+
+        /* Container for Reset and Download buttons */
+        .searchbar>div>div {
+            display: flex;
+            /* This aligns the "Reset" button to the left side of the nested container */
+            justify-content: center;
+            /* This centers the "Reset" button vertically */
+            margin-right: 15px;
+            /* Add spacing between the "Reset" button and dropdowns */
+        }
+
+        .searchbar select {
+            margin-right: 10px;
+            /* Add some spacing between dropdowns */
+        }
+
+        /* Ensure the last dropdown doesn't have any margin on the right side */
+        .searchbar select:last-of-type {
+            margin-right: 0;
         }
     </style>
 
@@ -166,37 +182,49 @@
             at <a href="http://jpmorgan.com/ai"> JPMorgan AI
                 Research </a></small>
     </h1>
-    <br>
     <div class="container-fluid">
         <div class="searchbar">
-            <button class="btn btn-default" onclick="reset()">Reset</button>
+            <div style="display: flex; align-items: center;">
 
-            <select id="authorselectfirst" class="btn bibtex_search bibtex_author" extra="first" search="author"
-                onchange="resetOtherFilters('authorselectfirst')">
-                <option value="">Search First Author</option>
-            </select>
+                <!-- Container for Reset and Download buttons -->
+                <div style="flex-direction: column;">
+                    <button class="btn-default" style="margin-top: 42px;" onclick="reset()">Reset</button>
+                    <button class="btn btn-default" id="downloadBibSubset" style="margin-top: 10px;">Download Filtered
+                        .bib</button>
+                </div>
 
-            <select id="authorselect" class="btn bibtex_search bibtex_author" search="author"
-                onchange="resetOtherFilters('authorselect')">
-                <option value="">Search Author</option>
-            </select>
+                <!-- Search First Author Dropdown -->
+                <select id="authorselectfirst" class="bibtex_search bibtex_author" extra="first" search="author"
+                    onchange="resetOtherFilters('authorselectfirst')">
+                    <option value="">Search First Author</option>
+                </select>
 
-            <select id="topicselect" class="btn bibtex_search" search="topic">
-                <option value="">Search Topic</option>
-                <!-- Add topic values here -->
-                <option value="Autonomy">Autonomy</option>
-                <option value="Symbiotic">Symbiotic Autonomy</option>
-                <option value="CoBot|Episodic|Service|Insights|Model-Instance|Diverse">CoBot</option>
-                <option value="Learning">Learning</option>
-                <option value="Multiagent">Multiagent Systems</option>
-                <option value="Multi-robot|Multirobot|soccer|Multiagent">Multirobot Systems</option>
-                <option value="Planning">Planning</option>
-                <option value="Robot">Autonomous Robots</option>
-                <option value="Localization">Robot Localization</option>
-                <option value="Soccer|Multi-robot">Robot Soccer</option>
-                <option value="Vision">Vision</option>
-            </select>
+                <!-- Search Author Dropdown -->
+                <select id="authorselect" class="bibtex_search bibtex_author" search="author"
+                    onchange="resetOtherFilters('authorselect')">
+                    <option value="">Search Author</option>
+                </select>
 
+                <!-- Search Topic Dropdown -->
+                <select id="topicselect" class="bibtex_search" search="topic">
+                    <option value="">Search Topic</option>
+                    <!-- Add topic values here -->
+                    <option value="Autonomy">Autonomy</option>
+                    <option value="Symbiotic">Symbiotic Autonomy</option>
+                    <option value="CoBot|Episodic|Service|Insights|Model-Instance|Diverse">CoBot</option>
+                    <option value="Learning">Learning</option>
+                    <option value="Multiagent">Multiagent Systems</option>
+                    <option value="Multi-robot|Multirobot|soccer|Multiagent">Multirobot Systems</option>
+                    <option value="Planning">Planning</option>
+                    <option value="Robot">Autonomous Robots</option>
+                    <option value="Localization">Robot Localization</option>
+                    <option value="Soccer|Multi-robot">Robot Soccer</option>
+                    <option value="Vision">Vision</option>
+                </select>
+
+            </div>
+
+            <!-- Search Input Field and Example Text -->
             <div class="search-group">
                 <div class="search-input">
                     <input type="text" class="bibtex_search form-control" id="searchbar"
@@ -204,17 +232,16 @@
                     <span class="help-block" style="font-size:17px; margin: 6px;">Example: journal 2015 (finds the
                         intersection of the two terms)</span>
                 </div>
-                <button class="btn btn-default" id="downloadBibSubset">Download Filtered .bib</button>
             </div>
-
-
-
         </div>
     </div>
 
 
+
+
+
     <div class="bibtex_structure">
-        <div class="group year" extra="ASC number">
+        <div class="group year" extra="ASC number" style="margin-top: 35px;">
             <a href="#top" style="display: inline"><em>(Top of the page)</em></a>
             <div style="padding-bottom:10px;"></div>
             <div class="sort journal" extra="DESC string">
