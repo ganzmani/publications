@@ -453,10 +453,24 @@ function BibtexDisplay() {
             }
         }
         // Check if the entry has a URL
-        var urlOrDefault = entry.URL || entry.url || "http://www.cs.cmu.edu/~mmv/papers/" + entry.BIBTEXKEY + ".pdf";
+        var urlOrDefault = entry.URL || entry.url;
 
-        // Replace +URLORDEFAULT+ in the template with the actual URL
-        tpl.html(tpl.html().replace('+URLORDEFAULT+', urlOrDefault));
+        // If there's no URL provided, remove the underline from the title and change its color
+        if (!urlOrDefault) {
+            tpl.find(".title").css({
+                "text-decoration": "none",
+                "color": "black" // Replace with desired color code
+            });
+        } else {
+            // If there's a URL, and if BIBTEXKEY is used as the default URL pattern
+            urlOrDefault = urlOrDefault || "http://www.cs.cmu.edu/~mmv/papers/" + entry.BIBTEXKEY + ".pdf";
+        }
+
+        // Replace +URLORDEFAULT+ in the template with the actual URL or empty string if none
+        tpl.html(tpl.html().replace('+URLORDEFAULT+', urlOrDefault || ''));
+
+
+
 
         tpl.addClass("bibtexentry");
         return tpl;
