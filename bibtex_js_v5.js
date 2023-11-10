@@ -452,6 +452,7 @@ function BibtexDisplay() {
                 });
             }
         }
+        
         // Check if the entry has a URL
         var urlOrDefault = entry.URL || entry.url;
 
@@ -468,9 +469,6 @@ function BibtexDisplay() {
 
         // Replace +URLORDEFAULT+ in the template with the actual URL or empty string if none
         tpl.html(tpl.html().replace('+URLORDEFAULT+', urlOrDefault || ''));
-
-
-
 
         tpl.addClass("bibtexentry");
         return tpl;

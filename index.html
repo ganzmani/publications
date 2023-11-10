@@ -89,7 +89,7 @@
             flex-wrap: no-wrap;
             gap: 5px;
             align-items: center;
-            min-height: 100px;
+            min-height: 50px;
         }
 
         .searchbar select,
@@ -137,7 +137,7 @@
 
         .help-block {
             position: absolute;
-            bottom: -60px;
+            bottom: -35px;
             /* Adjusted the position to be slightly closer */
             left: 0;
             font-size: 0.9rem;
@@ -181,16 +181,16 @@
 
 <body>
     <a name="top"></a>
-    <h1 class="header" style="color: #484646;">JPMorgan AI Research Publications<br></h1>
+    <!--<h1 class="header" style="color: #484646;">JPMorgan AI Research Publications<br></h1>-->
     <div class="container-fluid">
         <div class="searchbar">
             <div style="display: flex; align-items: center;">
 
                 <!-- Container for Reset and Download buttons -->
                 <div style="flex-direction: column;">
-                    <button class="btn-default" style="margin-top: 42px;" onclick="reset()">Reset</button>
-                    <button class="btn btn-default" id="downloadBibSubset" style="margin-top: 10px;">Download Filtered
-                        .bib</button>
+                    <button class="btn-default" style="width: 100px;" onclick="reset()">Reset</button>
+                    <!-- <button class="btn btn-default" id="downloadBibSubset" style="margin-top: 10px;">Download Filtered
+                        .bib</button> -->
                 </div>
 
                 <!-- Search First Author Dropdown -->
@@ -205,10 +205,9 @@
                     <option value="">Search Author</option>
                 </select>
 
-                <!-- Search Topic Dropdown -->
+                <!-- Search Topic Dropdown 
                 <select id="topicselect" class="bibtex_search" search="topic">
                     <option value="">Search Topic</option>
-                    <!-- Add topic values here -->
                     <option value="Autonomy">Autonomy</option>
                     <option value="Symbiotic">Symbiotic Autonomy</option>
                     <option value="CoBot|Episodic|Service|Insights|Model-Instance|Diverse">CoBot</option>
@@ -221,17 +220,16 @@
                     <option value="Soccer|Multi-robot">Robot Soccer</option>
                     <option value="Vision">Vision</option>
                 </select>
-
+                -->
             </div>
 
             <!-- Search Input Field and Example Text -->
             <div class="search-group">
                 <div class="search-input">
                     <input type="text" class="bibtex_search form-control" id="searchbar"
-                        placeholder="Search publications">
-                    <span class="help-block" style="font-size:17px; margin: 6px;">Example: journal 2022 (finds the
-                        intersection of the two terms)<br>
-                    <span style="margin-left: 68px;">Veloso 2021 </span>
+                        placeholder="Search Publications">
+                    <span class="help-block" style="font-size:17px; margin: 6px;">Examples: learning, planning,
+                        optimization, data, market, 2019 <br>
                     </span>
                 </div>
             </div>
