@@ -452,7 +452,7 @@ function BibtexDisplay() {
                 });
             }
         }
-        
+        tpl.find("a").attr("target", "_blank");
         // Check if the entry has a URL
         var urlOrDefault = entry.URL || entry.url;
 
